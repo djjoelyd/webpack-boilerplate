@@ -5,17 +5,18 @@ var extractCSS = new ExtractTextPlugin('style.css');
 
 var output = {
     path: path.resolve(__dirname, 'build'),
-    publicPath: 'http://www.example.com/build/',
+    publicPath: 'http://localhost:8080/build/',
     filename: 'index.min.js'
 };
 
 module.exports = Object.assign(commonConfig, {
     output: output,
+    devtool: 'source-map',
     module: {
         loaders: commonConfig.module.loaders.concat({
             test: /\.s?css$/,
             exclude: /(node_modules)/,
-            loader: extractCSS.extract('style', 'css!postcss!sass')
+            loader: extractCSS.extract('style', 'css?sourceMap!postcss?sourceMap!sass?sourceMap')
         })
     },
     plugins: commonConfig.plugins.concat(extractCSS)
